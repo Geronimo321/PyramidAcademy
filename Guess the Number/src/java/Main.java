@@ -6,9 +6,12 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("What is your name?");
-        String name = scanner.next();
-
-        Game game = new Game(name);
-        game.playGame();
+        try{
+            String name = scanner.next();
+            Game game = new Game(name);
+            game.playGame();
+        }catch (Exception e){
+            System.out.println("Sorry, something went wrong");
+        }
     }
 }
