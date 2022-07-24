@@ -2,22 +2,38 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    int attempts;
-    String name;
-    int num;
+    private int attempts;
+    private String name;
+    private int num;
 
     public Game(String name){
-        attempts= 0;
-        this.name = name;
-
-        Random rand = new Random();
-        num = rand.nextInt(20) + 1;
+        setAttempts(0);
+        setName(name);
+        setNum();
     }
-
+    public int getAttempts(){
+        return attempts;
+    }
+    public int getNum(){
+        return num;
+    }
+    public String getName(){
+        return name;
+    }
+    public void setAttempts(int attempts) {
+        this.attempts = attempts;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setNum(){
+        Random rand = new Random();
+        this.num = rand.nextInt(20) + 1;
+    }
     public void playGame(){
         Scanner input = new Scanner(System.in);
         int guess;
-        System.out.println("Well, "+name+" I'm thinking of a number between 1 and 20.");
+        System.out.println("Well, "+this.getName()+" I'm thinking of a number between 1 and 20.");
         guess = takeGuess(input);
         do {
             if(guess == num){
@@ -31,20 +47,19 @@ public class Game {
             }
         }while (attempts < 6);
         playAgain(false, input);
-        return;
+
     }
 
     public void reset(){
-        attempts = 0;
-        Random rand = new Random();
-        num = rand.nextInt(20) + 1;
+        setAttempts(0);
+        setNum();
     }
 
     public void playAgain(boolean win, Scanner scanner){
         if(win){
-            System.out.println("Good job, "+name+" You guessed my number in "+ attempts+" guesses!");
+            System.out.println("Good job, "+getName()+" You guessed my number in "+ getAttempts()+" guesses!");
         }else{
-            System.out.println("Sorry "+name+", you didn't guess in 6 attempts.");
+            System.out.println("Sorry "+getName()+", you didn't guess in 6 attempts.");
         }
 
         System.out.println("Would you like to play again? ");
@@ -68,7 +83,6 @@ public class Game {
     }
 
     public int takeGuess(Scanner num){
-        //System.out.println("number is "+ this.num);
         int guess =-1;
         do{
             System.out.println("Take a guess.");
@@ -78,7 +92,7 @@ public class Game {
             }
             guess = num.nextInt();
         }while (guess <0 );
-        attempts++;
+        setAttempts(getAttempts()+1);
         return guess;
     }
 }
